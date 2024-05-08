@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Enter your movie name"><br><br>
+    <input type="text" name="desc" placeholder="Enter your movie description"><br><br>
+    <input type="text" name="year" placeholder="Enter your movie year"><br><br>
+    <input type="text" name="actors" placeholder="Enter actor name"><br><br>
+    <input type="text" name="youtube_link" placeholder="Enter YouTube link"><br><br>
+    <input type="file" name="img"><br><br>
+    <label for="category">Category:</label><br>
+    <select id="category" name="category">
+        {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select><br><br>
+    <input type="submit"><br><br>
+</form>
+{% endblock %}

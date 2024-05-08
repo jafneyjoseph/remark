@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    We have a variety of movies for you to enjoy.
+{% endblock %}
+{% block title %}
+    Search Results
+{% endblock %}
+{% block content %}
+<div>
+    <p class="text-center my_search_text">You have Searched for: <b>"{{ query }}"</b></p>
+</div>
+<div class="container">
+    <div class="row mx-auto">
+        {% if results %}
+            {% for movie in results %}
+            <div class="my_bottom_margin col-9 col-12 col-md-8 mx-auto">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <a href="{{ movie.get_absolute_url }}"><img class="card-img-top my_image" src="{{ movie.img.url }}" alt="{{ movie.title }}"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ movie.title }}</h4>
+                                <p class="card-text">{{ movie.desc }}</p>
+                                <p class="card-text"><strong>Year:</strong> {{ movie.year }}</p>
+                                <p class="card-text"><strong>Actors:</strong> {{ movie.actors }}</p>
+                                <p class="card-text"><strong>YouTube Trailer Link:</strong> <a href="{{ movie.youtube_link }}">{{ movie.youtube_link }}</a></p>
+                                <a class="btn btn-warning" href="{% url 'movie:update' movie.id %}">Update</a>
+                                <a class="btn btn-danger" href="{% url 'movie:delete' movie.id %}">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="row mx-auto">
+            <p class="text-center my_search_text">No results found</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

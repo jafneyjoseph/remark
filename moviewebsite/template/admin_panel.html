@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <h2>Categories:</h2>
+    <ul>
+        {% for category in categories %}
+        <li>{{ category.name }}</li>
+        <a href="{% url 'delete_category' category.id %}">Delete</a> <!-- Added delete link for categories -->
+        {% endfor %}
+    </ul>
+
+    <h2>Movies:</h2>
+    <ul>
+        {% for movie in movies %}
+        <li>{{ movie.title }}</li>
+        <a href="{% url 'delete_movie' movie.id %}">Delete</a>
+        {% endfor %}
+    </ul>
+
+    <h2>Users:</h2>
+    <ul>
+        {% for user in users %}
+        <li>{{ user.username }}</li>
+        <a href="{% url 'delete_user' user.id %}">Delete</a>
+        {% endfor %}
+    </ul>
+
+    <!-- Additional Section: Add a Form to Add New Categories -->
+    <h2>Add New Category:</h2>
+    <form action="{% url 'add_category' %}" method="post">
+        {% csrf_token %}
+        <label for="category_name">Category Name:</label>
+        <input type="text" id="category_name" name="category_name" required>
+        <button type="submit">Add Category</button>
+    </form>
+
+    <!-- Additional Section: Add a Form to Add New Movies -->
+    <h2>Add New Movie:</h2>
+    <form action="{% url 'add_movie' %}" method="post">
+        {% csrf_token %}
+        <label for="movie_title">Movie Title:</label>
+        <input type="text" id="movie_title" name="movie_title" required>
+        <button type="submit">Add Movie</button>
+    </form>
+
+    <!-- Additional Section: Add a Form to Add New Users -->
+    <h2>Add New User:</h2>
+    <form action="{% url 'add_user' %}" method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <button type="submit">Add User</button>
+    </form>
+</body>
+</html>
